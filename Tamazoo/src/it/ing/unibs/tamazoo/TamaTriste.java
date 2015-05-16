@@ -1,17 +1,14 @@
 package it.ing.unibs.tamazoo;
 
-import mylib.math.MyMath;
-
 public class TamaTriste extends Tamagotchi {
 
-	public final static int FELICITA = 0;
+	private final static int FELICITA = 0;
 	public TamaTriste() {
 		super();
 	}
 
 	public TamaTriste(String nome, double sazieta, double soddisfazione) {
-		super(nome, sazieta, soddisfazione);
-		soddisfazione = MIN_SODDISFAZIONE;
+		super(nome, sazieta, MIN_SODDISFAZIONE);
 	}
 	/**
 	 * Il TamaTriste rimane in vita indipendantemente dal suo livello di soddisfazione
@@ -32,7 +29,7 @@ public class TamaTriste extends Tamagotchi {
 		return controllaFelicita(felicita);	
 	}
 	
-	/**
+	/*
 	 * Controlla i valori di sazieta e soddisfazione ogni qual volta che vengano modificati. 
 	 * In questo modo essi non potranno andare né oltre il massimo né sotto il minimo prestabilito.
 	 */

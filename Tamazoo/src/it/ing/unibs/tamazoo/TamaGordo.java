@@ -1,18 +1,16 @@
 package it.ing.unibs.tamazoo;
 
-import mylib.math.MyMath;
 
 public class TamaGordo extends Tamagotchi{
 
-	public final static int FATTORE_AUMENTO_FAME = 2;
+	private final static int FATTORE_AUMENTO_FAME = 2;
 	public TamaGordo() {
 		super();
 		
 	}
 
 	public TamaGordo(String nome, double sazieta, double soddisfazione) {
-		super(nome, sazieta, soddisfazione);
-	soddisfazione = MAX_SODDISFAZIONE;	
+		super(nome, sazieta, MAX_SODDISFAZIONE);
 	}
 	/**
 	 *  Il TamaGordo non è in vita solo se la sua sazieta è al livello minimo 
@@ -26,6 +24,9 @@ public class TamaGordo extends Tamagotchi{
 			return true;
 	}
 	
+	/**
+	 * @see it.ing.unibs.tamazoo.Tamagotchi#statofelicità()
+	 */
 	public String statoFelicita()
 	{
 		//Calcolo la felicità approssimando al valore intero della sazieta
@@ -34,7 +35,7 @@ public class TamaGordo extends Tamagotchi{
 		return controllaFelicita(felicita);	
 	}
 	
-	/**
+	/*
 	 * Controlla i valori di sazieta e soddisfazione ogni qual volta che vengano modificati. 
 	 * In questo modo essi non potranno andare né oltre il massimo né sotto il minimo prestabilito.
 	 */
