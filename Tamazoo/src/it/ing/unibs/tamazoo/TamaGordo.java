@@ -30,7 +30,7 @@ public class TamaGordo extends Tamagotchi{
 	public String statoFelicita()
 	{
 		//Calcolo la felicità approssimando al valore intero della sazieta
-		int felicita =  (int) sazieta;
+		int felicita =  (int)Math.round(sazieta);
 		//In base alla felicità calcolata ritorno lo stato della felicità sotto forma di stringa
 		return controllaFelicita(felicita);	
 	}
