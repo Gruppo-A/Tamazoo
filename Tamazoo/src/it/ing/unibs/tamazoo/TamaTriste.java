@@ -29,18 +29,15 @@ public class TamaTriste extends Tamagotchi {
 		return controllaFelicita(felicita);	
 	}
 	
-	/*
-	 * Controlla i valori di sazieta e soddisfazione ogni qual volta che vengano modificati. 
-	 * In questo modo essi non potranno andare né oltre il massimo né sotto il minimo prestabilito.
+	/**
+	 * Dà un numero variabile di carezze al TamaTriste
+	 *
+	 * @param numero di carezze da dare al TamaTriste
 	 */
-	private void controllaValori()
-	{
-		//Controllo il parametro sazieta
-		if(sazieta < MIN_SAZIETA)
-			sazieta = MIN_SAZIETA;
-		else if(sazieta > MAX_SAZIETA)
-			sazieta = MAX_SAZIETA;
-		//Controllo il parametro soddisfazione che deve essere sempre al minimo
-		soddisfazione = MIN_SODDISFAZIONE;
+	public void daiCarezze(int carezze)
+	{	
+		//Diminuisco la sazietà in base al numero di carezze ricevute
+		sazieta -= carezze/FATTORE_CAREZZE;	
+		Math.max(sazieta, MIN_SAZIETA);
 	}
 }

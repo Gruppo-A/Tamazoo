@@ -35,20 +35,7 @@ public class TamaGordo extends Tamagotchi{
 		return controllaFelicita(felicita);	
 	}
 	
-	/*
-	 * Controlla i valori di sazieta e soddisfazione ogni qual volta che vengano modificati. 
-	 * In questo modo essi non potranno andare né oltre il massimo né sotto il minimo prestabilito.
-	 */
-	private void controllaValori()
-	{
-		//Controllo il parametro sazieta
-		if(sazieta < MIN_SAZIETA)
-			sazieta = MIN_SAZIETA;
-		else if(sazieta > MAX_SAZIETA)
-			sazieta = MAX_SAZIETA;
-		//Controllo il parametro soddisfazione che deve essere sempre al massimo
-			soddisfazione = MAX_SODDISFAZIONE;
-	}
+	
 	
 	/**
 	 * Dà un numero variabile di carezze al TamaGordo che ne aumenta solamente la fame 
@@ -58,7 +45,31 @@ public class TamaGordo extends Tamagotchi{
 	public void daiCarezze(int carezze)
 	{	
 		//Diminuisco la sazietà in base al numero di carezze ricevute
-		sazieta = FATTORE_AUMENTO_FAME * (sazieta - carezze/FATTORE_CAREZZE);	
-		controllaValori();
+		sazieta = FATTORE_AUMENTO_FAME * (sazieta - carezze/FATTORE_CAREZZE);
+		Math.max(sazieta, MIN_SAZIETA);
 	}
+	/**
+	 * Dà un numero variabile di biscotti al tamagotchi
+	 *
+	 * @param il numero di biscotti da dare al tamagotchi
+	 */
+	public void daiBiscotti(int biscotti)
+	{
+		double fattore = 0;
+		
+		for(int i  = 1; i <= biscotti; i++)
+		{
+			//Questa espressione è utilizzata per ricavare il fattore con il quale aumenta la sazietà.
+			//E' stata ricavata sperimentalmente, facendo attenzione a due cose:
+			//-il fattore non può essere negativo perché dando dei biscotti è insensato ridurre la sazietà
+			//-più la sazietà attuale è grande più il fattore è piccolo (in questo modo teniamo conto della situazione del tamagotchi
+			//proprio come si farebbe nella realtà)
+			fattore = (FATTORE_ESPRESSIONE - ((getSazieta() - FATTORE_ESPRESSIONE) * DECREMENTO_SAZIETA))/getSazieta();
+			sazieta += sazieta*(i*fattore);
+			Math.min(sazieta, MAX_SAZIETA);
+			
+		}
+		
+	}
+	
 }

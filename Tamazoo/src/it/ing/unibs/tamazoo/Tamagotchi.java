@@ -16,9 +16,9 @@ public class Tamagotchi {
 
 	//Queste costanti sono utilizzate per fare in modo che la sazieta e la soddisfazione aumentino di una percentuale 
 	//minore man mano che si danno biscotti al tamagotchi.
-	private final static double DECREMENTO_SAZIETA = 0.0075;
+	protected final static double DECREMENTO_SAZIETA = 0.0075;
 	private final static double DECREMENTO_SODDISFAZIONE =  0.009;
-	private final static double FATTORE_ESPRESSIONE = 1;
+	protected final static double FATTORE_ESPRESSIONE = 1;
 	
 	//Queste 4 costanti sono pubbliche perché vengono utilizzate nel main (in fase di lettura dei valori iniziali) 
 	//per evitare che l'utente crei un tamagotchi con dei valori iniziali incosistenti
@@ -131,11 +131,12 @@ public class Tamagotchi {
 			//proprio come si farebbe nella realtà)
 			fattore = (FATTORE_ESPRESSIONE - ((getSazieta() - FATTORE_ESPRESSIONE) * DECREMENTO_SAZIETA))/getSazieta();
 			sazieta += sazieta*(i*fattore);
+			Math.min(sazieta, MAX_SAZIETA);
 			
 		}
 		//Diminuisco la soddisfazione in base al numero di biscotti ricevuti
 		soddisfazione -= biscotti/FATTORE_BISCOTTI;
-		controllaValori();
+		Math.max(soddisfazione, MIN_SODDISFAZIONE);
 	}
 	
 	/**
@@ -155,11 +156,12 @@ public class Tamagotchi {
 			//-più la soddisfazione attuale è grande più il fattore è piccolo (in questo modo teniamo conto della situazione del tamagotchi
 			//proprio come si farebbe nella realtà)
 			fattore = (FATTORE_ESPRESSIONE - ((getSoddisfazione() - FATTORE_ESPRESSIONE) *DECREMENTO_SODDISFAZIONE))/getSoddisfazione();
-			soddisfazione += soddisfazione*(i*fattore);		
+			soddisfazione += soddisfazione*(i*fattore);
+			Math.min(soddisfazione, MAX_SODDISFAZIONE);		
 		}
 		//Diminuisco la sazietà in base al numero di carezze ricevute
 		sazieta -= carezze/FATTORE_CAREZZE;	
-		controllaValori();
+		Math.max(sazieta, MIN_SAZIETA);
 	}
 	
 	/**
@@ -208,24 +210,6 @@ public class Tamagotchi {
 		//Se il tamagotchi dovesse essere morto allora non ci sarebbero informazioni
 		//riguardanti la sua sazieta, la sua soddisfazione e il suo stato di felicità
 		return descrizione.toString();
-	}
-	
-	/**
-	 * Controlla i valori di sazieta e soddisfazione ogni qual volta che vengano modificati. 
-	 * In questo modo essi non potranno andare né oltre il massimo né sotto il minimo prestabilito.
-	 */
-	private void controllaValori()
-	{
-		//Controllo il parametro sazieta
-		if(sazieta < MIN_SAZIETA)
-			sazieta = MIN_SAZIETA;
-		else if(sazieta > MAX_SAZIETA)
-			sazieta = MAX_SAZIETA;
-		//Controllo il parametro soddisfazione
-		if(soddisfazione < MIN_SODDISFAZIONE)
-			soddisfazione = MIN_SODDISFAZIONE;
-		else if(soddisfazione > MAX_SODDISFAZIONE)
-			soddisfazione = MAX_SODDISFAZIONE;
 	}
 	
 	/**
